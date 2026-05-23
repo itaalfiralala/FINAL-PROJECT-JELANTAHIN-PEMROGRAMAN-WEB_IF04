@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JeLantahIN – Daftar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="daftar.css"/>
+</head>
+<body>
+
+<div class="page">
+
+  <!--HEADER-->
+  <header class="mobile-header">
+    <span class="mobile-brand-name">JeLantahIN</span>
+  </header>
+
+  <!--PANEL KIRI DEKSTOP-->
+  <div class="panel-left">
+    <div class="brand-row">
+      <span class="brand-name-lg">JeLantahIN</span>
+    </div>
+
+    <span class="eco-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      Platform Ramah Lingkungan
+    </span>
+
+    <h1 class="hero-title">
+      Bergabung &amp;<br>
+      <span class="accent">Kontribusi</span> untuk<br>
+      Bumi Lebih <span class="accent-green">Hijau</span>
+    </h1>
+
+    <p class="hero-desc">
+      Daftar sekarang dan mulai perjalanan Anda bersama ribuan anggota yang telah berkontribusi dalam pengelolaan minyak jelantah demi masa depan yang lebih bersih dan berkelanjutan.
+    </p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <span>Lacak titik pengumpulan terdekat secara real-time</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <span>Dapatkan poin reward dari setiap setoran jelantah</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+        </div>
+        <span>Pantau dampak lingkungan kontribusi Anda</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL: FORM DAFTAR -->
+  <div class="panel-right">
+
+    <div class="daftar-card">
+
+      <!-- Logo -->
+      <div class="logo-block">
+        <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <img src="Logo.png" alt="logo" style=width:25%>
+        </svg>
+        <div class="logo-wordmark">JeLantahIN</div>
+      </div>
+
+      <!-- Heading -->
+      <div class="form-header">
+        <div class="form-heading">DAFTAR</div>
+      </div>
+
+      <!-- Fields -->
+      <div class="fields">
+
+        <!-- Nama -->
+        <div class="field">
+          <label for="nama">Nama</label>
+          <input type="text" id="nama" placeholder="Masukkan Nama" autocomplete="name"/>
+        </div>
+
+        <!-- Nomor Telepon -->
+        <div class="field">
+          <label for="telepon">Nomor Telepon</label>
+          <div class="phone-row">
+            <span class="phone-prefix">+ | 62</span>
+            <input type="tel" id="telepon" class="phone-input" placeholder="8xx-xxxx-xxxx" autocomplete="tel"/>
+          </div>
+        </div>
+
+        <!-- Kata Sandi -->
+        <div class="field">
+          <label for="sandi">Kata Sandi</label>
+          <input type="password" id="sandi" placeholder="Masukkan Kata Sandi" autocomplete="new-password"/>
+        </div>
+
+        <!-- Button -->
+        <button class="btn-daftar" id="btnDaftar" onclick="handleDaftar()">Daftar</button>
+
+        <!-- Footer -->
+        <p class="footer-link">Sudah punya akun? <a href="login.html">Masuk</a></p>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  function handleDaftar() {
+    const nama    = document.getElementById('nama').value.trim();
+    const telepon = document.getElementById('telepon').value.trim();
+    const sandi   = document.getElementById('sandi').value;
+    const btn     = document.getElementById('btnDaftar');
+    const card    = document.querySelector('.daftar-card');
+
+    if (!nama || !telepon || !sandi) {
+      card.style.animation = 'shakeX .4s ease';
+      card.addEventListener('animationend', () => { card.style.animation = ''; }, { once: true });
+      return;
+    }
+
+    btn.textContent = 'Memproses…';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.textContent = 'DAFTAR';
+      btn.disabled = false;
+      alert(`Selamat datang, ${nama}!\nAkun berhasil dibuat. 🌿`);
+      window.location.href = 'index.html';
+    }, 1400);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleDaftar();
+  });
+</script>
+</body>
+</html>

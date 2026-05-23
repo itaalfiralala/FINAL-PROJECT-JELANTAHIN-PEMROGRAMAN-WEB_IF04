@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JelantahIN</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow-x:hidden}
+:root{
+  --navy:#0D1B2A;
+  --navy2:#112238;
+  --navy3:#162a3f;
+  --yellow:#FBC02D;
+  --yellow2:#FFC107;
+  --yellow3:#FFD54F;
+  --yellow-pale:#fff8e1;
+  --white:#ffffff;
+  --g50:#f8f9fc;
+  --g100:#eef1f8;
+  --g200:#d0d5e0;
+  --g400:#8e9ab5;
+  --g600:#4e5b78;
+  --green:#22c55e;
+  --orange:#f97316;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+body{font-family:var(--font);background:var(--navy);color:var(--white)}
+
+/* ══ DESKTOP ══ */
+.desktop-shell{min-height:100vh;display:flex;flex-direction:column;}
+.desktop-nav{
+  display:flex;align-items:center;
+  padding:0 48px;height:68px;
+  background:rgba(13,27,42,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  position:sticky;top:0;z-index:100;
+}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo{width:36px;height:36px;border-radius:10px;background:var(--yellow);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.nav-logo img{width:100%;height:100%;object-fit:contain}
+.nav-logo-icon{width:20px;height:20px;fill:none;stroke:var(--navy);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.nav-name{font-size:18px;font-weight:800;color:var(--white)}
+.nav-name span{color:var(--yellow)}
+.nav-links{display:flex;gap:4px;margin-left:40px}
+.nav-link{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);background:none;border:none;cursor:pointer;transition:all .2s;font-family:var(--font);}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-link.active{color:var(--yellow);background:rgba(251,192,45,.1)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.nav-poin{display:flex;align-items:center;gap:7px;background:rgba(251,192,45,.12);border:1px solid rgba(251,192,45,.25);padding:7px 14px;border-radius:50px;font-size:13px;font-weight:700;color:var(--yellow);}
+.nav-poin svg{width:14px;height:14px}
+.nav-avatar{width:38px;height:38px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--navy);cursor:pointer;}
+
+.desktop-page{display:none;flex:1}
+.desktop-page.active{display:flex;flex-direction:column;flex:1}
+
+/* BERANDA */
+.d-beranda{flex:1;display:grid;grid-template-columns:320px 1fr;gap:0;}
+.d-beranda-left{background:linear-gradient(180deg,var(--navy2) 0%,var(--navy) 100%);padding:32px 28px;border-right:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:24px;}
+.d-hello-card{background:linear-gradient(135deg,var(--yellow) 0%,var(--yellow3) 100%);border-radius:18px;padding:24px;position:relative;overflow:hidden;}
+.d-hello-card::before{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.15);}
+.d-hello-name{font-size:22px;font-weight:800;color:var(--navy);line-height:1.2}
+.d-hello-sub{font-size:12px;color:rgba(13,27,42,.65);margin-top:4px;font-weight:500}
+.d-poin-box{background:var(--navy);border-radius:12px;padding:14px 16px;margin-top:16px;display:flex;align-items:center;gap:10px;position:relative;z-index:1;}
+.d-poin-num{font-size:22px;font-weight:900;color:var(--yellow);font-family:var(--mono)}
+.d-poin-lbl{font-size:11px;color:rgba(255,255,255,.5);font-weight:500}
+.d-impact{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px;}
+.d-impact-title{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:700;margin-bottom:16px}
+.d-impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.d-impact-item{text-align:center;padding:14px 10px;background:rgba(255,255,255,.04);border-radius:12px}
+.d-impact-num{font-size:20px;font-weight:900;color:var(--yellow);font-family:var(--mono)}
+.d-impact-unit{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px}
+.d-beranda-right{padding:32px;overflow-y:auto}
+.d-section-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;}
+.d-fitur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.d-fitur-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 18px;cursor:pointer;transition:all .22s;text-align:center;}
+.d-fitur-card:hover{background:rgba(251,192,45,.08);border-color:rgba(251,192,45,.25);transform:translateY(-3px)}
+.d-fitur-icon{width:52px;height:52px;border-radius:14px;background:rgba(251,192,45,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.d-fitur-icon svg{width:26px;height:26px;fill:none;stroke:var(--yellow);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.d-fitur-name{font-size:14px;font-weight:700;color:#fff}
+.d-fitur-desc{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px}
+.d-history-table{width:100%;border-collapse:collapse}
+.d-history-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,.3);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.07);}
+.d-history-table td{padding:14px 14px;font-size:13px;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.04);}
+.d-history-table tr:hover td{background:rgba(255,255,255,.03)}
+.tbl-badge{padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;}
+.tbl-badge.selesai{background:rgba(34,197,94,.15);color:#22c55e}
+.tbl-badge.proses{background:rgba(249,115,22,.15);color:#f97316}
+
+/* EDUKASI DESKTOP */
+.d-edukasi{flex:1;display:grid;grid-template-columns:340px 1fr;overflow:hidden;}
+.d-edu-sidebar{
+  background:linear-gradient(180deg,var(--navy2) 0%,var(--navy) 100%);
+  border-right:1px solid rgba(255,255,255,.07);
+  padding:40px 28px;
+  display:flex;flex-direction:column;gap:20px;
+  overflow-y:auto;
+}
+.d-edu-sidebar::-webkit-scrollbar{display:none}
+.d-edu-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(251,192,45,.12);border:1px solid rgba(251,192,45,.2);padding:6px 14px;border-radius:50px;margin-bottom:4px;}
+.d-edu-tag span{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--yellow)}
+.d-edu-tag svg{width:13px;height:13px;fill:none;stroke:var(--yellow);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.d-edu-heading{font-size:28px;font-weight:900;color:#fff;line-height:1.2;letter-spacing:-.3px}
+.d-edu-heading span{color:var(--yellow)}
+.d-edu-divider{height:1px;background:rgba(255,255,255,.07)}
+.d-edu-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.d-edu-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px 14px;text-align:center;}
+.d-edu-stat-num{font-size:22px;font-weight:900;color:var(--yellow);font-family:var(--mono)}
+.d-edu-stat-lbl{font-size:10px;color:rgba(255,255,255,.4);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.d-edu-cta{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 24px;background:var(--yellow);color:var(--navy);
+  font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;
+  border:none;border-radius:14px;cursor:pointer;
+  box-shadow:0 6px 20px rgba(251,192,45,.35);
+  transition:all .22s;font-family:var(--font);text-decoration:none;
+  margin-top:auto;
+}
+.d-edu-cta:hover{background:var(--yellow3);transform:translateY(-2px);box-shadow:0 10px 28px rgba(251,192,45,.5)}
+.d-edu-cta svg{width:16px;height:16px;fill:none;stroke:var(--navy);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+.d-edu-main{
+  background:var(--g50);
+  overflow-y:auto;
+  padding:40px 48px;
+  display:flex;
+  align-items:flex-start;
+}
+.d-edu-main::-webkit-scrollbar{width:4px}
+.d-edu-main::-webkit-scrollbar-thumb{background:var(--g200);border-radius:4px}
+
+/* Updated article card */
+.d-edu-article{background:#fff;border-radius:18px;padding:36px 40px;box-shadow:0 2px 12px rgba(0,0,0,.06);width:100%;}
+.d-edu-article-title{font-size:22px;font-weight:900;color:var(--navy);margin-bottom:22px;padding-bottom:18px;border-bottom:2px solid var(--g100);}
+.d-edu-article p{font-size:15px;line-height:1.9;color:var(--g600);}
+.d-edu-article p+p{margin-top:18px}
+
+/* PAY */
+.d-pay{flex:1;padding:40px 48px;background:var(--navy);overflow-y:auto}
+.d-pay-header{margin-bottom:36px}
+.d-pay-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px}
+.d-pay-sub{font-size:14px;color:rgba(255,255,255,.45)}
+.d-pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.d-pay-group{margin-bottom:8px}
+.d-pay-group-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;}
+.d-pay-methods{display:flex;flex-direction:column;gap:10px}
+.d-pay-card{background:var(--white);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:all .2s;border:2px solid transparent;}
+.d-pay-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15);border-color:var(--yellow)}
+.d-pay-card.selected{border-color:var(--yellow);box-shadow:0 0 0 4px rgba(251,192,45,.15)}
+.pay-logo{height:32px;display:flex;align-items:center}
+.pay-logo-text{font-size:18px;font-weight:900;color:var(--navy)}
+.pay-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--g200);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.d-pay-card.selected .pay-check{background:var(--yellow);border-color:var(--yellow)}
+.pay-check svg{width:12px;height:12px;fill:none;stroke:var(--navy);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .2s}
+.d-pay-card.selected .pay-check svg{opacity:1}
+.d-pay-summary{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px;height:fit-content;}
+.d-pay-summary h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:20px}
+.summary-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+.summary-row:last-child{border-bottom:none;font-weight:700;font-size:15px;color:#fff}
+.summary-row span:first-child{color:rgba(255,255,255,.5)}
+.summary-row span:last-child{color:var(--yellow)}
+.d-pay-btn{width:100%;margin-top:20px;padding:16px;border:none;border-radius:12px;background:var(--yellow);color:var(--navy);font-size:15px;font-weight:800;cursor:pointer;transition:all .2s;font-family:var(--font);}
+.d-pay-btn:hover{background:var(--yellow3);transform:translateY(-1px)}
+
+/* ══ MOBILE ══ */
+.mobile-shell{display:none}
+
+@media(max-width:768px){
+  body{background:#6b7280;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px 0}
+  .desktop-shell{display:none}
+  .mobile-shell{
+    display:flex;
+    width:360px;
+    height:780px;
+    background:var(--navy);
+    border-radius:40px;
+    overflow:hidden;
+    flex-direction:column;
+    box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 8px #1a1a1a,0 0 0 10px #333;
+    position:relative;
+  }
+  .mob-statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;font-size:12px;font-weight:600;color:rgba(255,255,255,.8);}
+  .mob-statusbar-right{display:flex;align-items:center;gap:5px}
+  .mob-statusbar-right svg{width:14px;height:14px;fill:rgba(255,255,255,.8)}
+  .mob-page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;flex-direction:column}
+  .mob-page.active{display:flex}
+  .mob-page::-webkit-scrollbar{display:none}
+  .mob-page{scrollbar-width:none}
+  .mob-topbar{background:var(--yellow);padding:12px 20px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .mob-topbar-left{display:flex;align-items:center;gap:8px}
+  .mob-topbar-logo{width:28px;height:28px;border-radius:8px;background:var(--navy);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .mob-topbar-logo svg{width:16px;height:16px;fill:none;stroke:var(--yellow);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .mob-topbar-name{font-size:14px;font-weight:800;color:var(--navy)}
+  .mob-avatar{width:32px;height:32px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--yellow)}
+  .mob-hello{background:var(--yellow);padding:0 20px 20px;flex-shrink:0;}
+  .mob-hello h2{font-size:20px;font-weight:800;color:var(--navy);line-height:1.2}
+  .mob-hello p{font-size:12px;color:rgba(13,27,42,.6);margin-top:4px;font-weight:500}
+  .mob-search{margin-top:14px;display:flex;align-items:center;gap:8px;background:var(--white);border-radius:10px;padding:10px 14px;}
+  .mob-search svg{width:15px;height:15px;fill:none;stroke:var(--g400);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .mob-search input{border:none;outline:none;font-size:13px;font-family:var(--font);color:var(--g600);flex:1;background:transparent}
+  .mob-search input::placeholder{color:var(--g400)}
+  .mob-body{flex:1;background:var(--g50);border-radius:24px 24px 0 0;padding:20px 16px 90px;margin-top:-8px;overflow-y:auto;}
+  .mob-body::-webkit-scrollbar{display:none}
+  .mob-poin-card{background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);border-radius:16px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;box-shadow:0 4px 20px rgba(13,27,42,.2);}
+  .mob-poin-label{font-size:11px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .mob-poin-num{font-size:26px;font-weight:900;color:var(--yellow);font-family:var(--mono);margin-top:4px}
+  .mob-poin-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px}
+  .mob-poin-icon{width:44px;height:44px;border-radius:12px;background:rgba(251,192,45,.15);display:flex;align-items:center;justify-content:center}
+  .mob-poin-icon svg{width:22px;height:22px;fill:none;stroke:var(--yellow);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .mob-section-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .mob-section-title{font-size:14px;font-weight:800;color:var(--navy)}
+  .mob-section-link{font-size:12px;font-weight:600;color:var(--yellow);cursor:pointer}
+  .mob-fitur-item{background:var(--white);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s;}
+  .mob-fitur-item:hover{transform:translateY(-2px)}
+  .mob-fitur-icon{width:44px;height:44px;border-radius:12px;background:rgba(251,192,45,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;}
+  .mob-fitur-icon svg{width:22px;height:22px;fill:none;stroke:var(--yellow);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .mob-fitur-name{font-size:11px;font-weight:700;color:var(--navy)}
+  .mob-impact-card{background:var(--white);border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:16px;}
+  .mob-impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mob-impact-item{background:var(--g50);border-radius:12px;padding:12px;text-align:center;}
+  .mob-impact-num{font-size:18px;font-weight:900;color:var(--yellow);font-family:var(--mono)}
+  .mob-impact-lbl{font-size:10px;color:var(--g400);margin-top:3px}
+  /* EDUKASI */
+  .mob-edu-img{height:260px;position:relative;flex-shrink:0;overflow:hidden;background:linear-gradient(135deg,#1a1200,#3a2800);}
+  .mob-edu-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,27,42,0) 30%,rgba(13,27,42,.95) 100%);}
+  .mob-edu-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2;}
+  .mob-edu-title{font-size:22px;font-weight:900;color:var(--yellow);line-height:1.2}
+  .mob-edu-body{flex:1;background:var(--navy2);padding:22px 20px 90px;overflow-y:auto;}
+  .mob-edu-body::-webkit-scrollbar{display:none}
+  .mob-edu-quote{background:rgba(255,255,255,.05);border-left:4px solid var(--yellow);border-radius:0 12px 12px 0;padding:18px 18px 18px 20px;margin-bottom:20px;}
+  .mob-edu-text{font-size:13px;line-height:1.75;color:rgba(255,255,255,.78);text-align:justify}
+  .mob-edu-text+.mob-edu-text{margin-top:14px}
+  .mob-edu-btn{display:block;width:100%;background:var(--yellow);color:var(--navy);font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:16px;border:none;border-radius:14px;cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:20px;}
+  /* PAY */
+  .mob-pay-header{padding:16px 20px 14px;background:var(--navy);flex-shrink:0;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.07);}
+  .mob-back-btn{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .mob-back-btn svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .mob-pay-title{font-size:16px;font-weight:800;color:#fff}
+  .mob-pay-body{flex:1;overflow-y:auto;padding:20px 16px 90px;background:var(--g50)}
+  .mob-pay-body::-webkit-scrollbar{display:none}
+  .mob-pay-group{margin-bottom:22px}
+  .mob-pay-group-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);margin-bottom:10px;}
+  .mob-pay-methods{display:flex;flex-direction:column;gap:10px}
+  .mob-pay-card{background:var(--white);border-radius:14px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border:2px solid transparent;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .mob-pay-card.selected{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(251,192,45,.15)}
+  .mob-pay-logo-text{font-size:18px;font-weight:900;color:var(--navy)}
+  .mob-pay-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--g200);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+  .mob-pay-card.selected .mob-pay-check{background:var(--yellow);border-color:var(--yellow)}
+  .mob-pay-check svg{width:11px;height:11px;fill:none;stroke:var(--navy);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .2s}
+  .mob-pay-card.selected .mob-pay-check svg{opacity:1}
+  .mob-pay-cta{position:absolute;bottom:72px;left:16px;right:16px;background:var(--yellow);color:var(--navy);border:none;border-radius:14px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;font-family:var(--font);box-shadow:0 8px 24px rgba(251,192,45,.45);transition:all .2s;}
+  /* BOTTOM NAV */
+  .mob-bottomnav{
+    position:absolute;bottom:0;left:0;right:0;
+    height:68px;
+    background:var(--navy);
+    border-top:1px solid rgba(255,255,255,.07);
+    display:flex;align-items:stretch;
+    z-index:50;flex-shrink:0;
+  }
+  .mob-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;border:none;background:transparent;font-family:var(--font);transition:all .15s;}
+  .mob-nav-item svg{width:22px;height:22px;fill:none;stroke:rgba(255,255,255,.3);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+  .mob-nav-item span{font-size:10px;font-weight:600;color:rgba(255,255,255,.3);transition:color .15s}
+  .mob-nav-item.active svg{stroke:var(--yellow)}
+  .mob-nav-item.active span{color:var(--yellow)}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ DESKTOP ══ -->
+<div class="desktop-shell">
+  <nav class="desktop-nav">
+    <a class="nav-brand" href="#">
+      <div class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 24 24"><path d="M12 2C8.5 2 5.5 4.9 5.5 8.5c0 5.3 6.5 13.5 6.5 13.5s6.5-8.2 6.5-13.5C18.5 4.9 15.5 2 12 2z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
+      </div>
+      <span class="nav-name">Jelantah<span>IN</span></span>
+    </a>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="dShowPage('beranda',this)">Beranda</button>
+      <button class="nav-link" onclick="dShowPage('edukasi',this)">Edukasi</button>
+      <button class="nav-link" onclick="dShowPage('pay',this)">Pay</button>
+    </div>
+    <div class="nav-right">
+      <div class="nav-poin">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        1.000 Poin
+      </div>
+      <div class="nav-avatar">A</div>
+    </div>
+  </nav>
+
+  <!-- BERANDA -->
+  <div class="desktop-page active" id="d-beranda">
+    <div class="d-beranda">
+      <div class="d-beranda-left">
+        <div class="d-hello-card">
+          <div class="d-hello-name">Hi, xxx! 👋</div>
+          <div class="d-hello-sub">Mari kumpulkan minyak goreng bekas hari ini</div>
+          <div class="d-poin-box">
+            <div><div class="d-poin-num">1.000</div><div class="d-poin-lbl">Poin Anda</div></div>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f5b800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <div class="d-impact">
+          <div class="d-impact-title">Our Impact</div>
+          <div class="d-impact-grid">
+            <div class="d-impact-item"><div class="d-impact-num">10.000+</div><div class="d-impact-unit">Liter Collected</div></div>
+            <div class="d-impact-item"><div class="d-impact-num">1.000kg</div><div class="d-impact-unit">Total Weight</div></div>
+            <div class="d-impact-item"><div class="d-impact-num">5.000+</div><div class="d-impact-unit">Contributors</div></div>
+            <div class="d-impact-item"><div class="d-impact-num">98%</div><div class="d-impact-unit">Recycled</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="d-beranda-right">
+        <div class="d-section-title">Fitur</div>
+        <div class="d-fitur-grid">
+          <div class="d-fitur-card" onclick="dShowPage('edukasi',document.querySelectorAll('.nav-link')[1])">
+            <div class="d-fitur-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <div class="d-fitur-name">Edukasi</div><div class="d-fitur-desc">Pelajari bahaya minyak jelantah</div>
+          </div>
+          <div class="d-fitur-card">
+            <div class="d-fitur-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="d-fitur-name">Drop Off</div><div class="d-fitur-desc">Titik pengumpulan terdekat</div>
+          </div>
+          <div class="d-fitur-card">
+            <div class="d-fitur-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+            <div class="d-fitur-name">Pick Up</div><div class="d-fitur-desc">Jemput ke lokasi Anda</div>
+          </div>
+        </div>
+        <div class="d-section-title">Riwayat Setoran</div>
+        <table class="d-history-table">
+          <thead><tr><th>ID</th><th>Tanggal</th><th>Liter</th><th>Poin</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>#1234</td><td>24 Juni 2025</td><td>5 L</td><td>+500</td><td><span class="tbl-badge selesai">Selesai</span></td></tr>
+            <tr><td>#1342</td><td>15 Juli 2025</td><td>10 L</td><td>+1000</td><td><span class="tbl-badge selesai">Selesai</span></td></tr>
+            <tr><td>#1401</td><td>2 Agustus 2025</td><td>20 L</td><td>+2000</td><td><span class="tbl-badge proses">Diproses</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUKASI — UPDATED: single article card -->
+  <div class="desktop-page" id="d-edukasi">
+    <div class="d-edukasi">
+      <div class="d-edu-sidebar">
+        <div>
+          <div class="d-edu-tag">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Edukasi</span>
+          </div>
+          <div class="d-edu-heading" style="margin-top:14px">Bahaya<br/><span>Minyak Jelantah</span></div>
+          <p style="font-size:13px;color:rgba(255,255,255,.45);margin-top:10px;line-height:1.7">Kenali risiko kesehatan dan lingkungan dari minyak goreng bekas yang tidak dikelola dengan baik.</p>
+        </div>
+        <div class="d-edu-divider"></div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px">Dampak Nyata</div>
+          <div class="d-edu-stat-grid">
+            <div class="d-edu-stat"><div class="d-edu-stat-num">70%</div><div class="d-edu-stat-lbl">Risiko Kanker</div></div>
+            <div class="d-edu-stat"><div class="d-edu-stat-num">1 L</div><div class="d-edu-stat-lbl">= 1.000.000 L Air Tercemar</div></div>
+            <div class="d-edu-stat"><div class="d-edu-stat-num">3×</div><div class="d-edu-stat-lbl">Batas Aman Pakai</div></div>
+            <div class="d-edu-stat"><div class="d-edu-stat-num">100%</div><div class="d-edu-stat-lbl">Bisa Didaur Ulang</div></div>
+          </div>
+        </div>
+        <div class="d-edu-divider"></div>
+        <a href="#" class="d-edu-cta">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          Mulai Daur Ulang
+        </a>
+      </div>
+
+      <!-- Main content: single clean article -->
+      <div class="d-edu-main">
+        <div class="d-edu-article">
+          <div class="d-edu-article-title">Bahaya Minyak Jelantah</div>
+          <p>Minyak jelantah adalah minyak goreng yang digunakan berulang kali sehingga mengalami kerusakan kimia dan menghasilkan zat berbahaya seperti lemak trans dan radikal bebas. Penggunaannya meningkatkan risiko penyakit kronis seperti kanker, penyakit jantung, gangguan pencernaan, serta memengaruhi hati dan ginjal.</p>
+          <p>Selain berbahaya bagi kesehatan, minyak jelantah pun berdampak berat bagi lingkungan. Pembuangannya ke saluran bisa menyumbat pipa, mencemari sumber air bersih dan ekosistem. Sebaiknya dibuang melalui program daur ulang sebagai biodiesel atau pembuatan sabun.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAY -->
+  <div class="desktop-page" id="d-pay">
+    <div class="d-pay">
+      <div class="d-pay-header">
+        <h1 class="d-pay-title">Pilih Metode Penukaran Poin</h1>
+        <p class="d-pay-sub">Pilih metode yang ingin Anda gunakan untuk penukaran poin</p>
+      </div>
+      <div class="d-pay-grid">
+        <div>
+          <div class="d-pay-group">
+            <div class="d-pay-group-title">e-Wallet</div>
+            <div class="d-pay-methods">
+              <div class="d-pay-card" onclick="dSelectPay(this)"><div class="pay-logo"><span class="pay-logo-text" style="color:#ee4d2d">ShopeePay</span></div><div class="pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+              <div class="d-pay-card" onclick="dSelectPay(this)"><div class="pay-logo"><span class="pay-logo-text" style="color:#00aeef">GoPay</span></div><div class="pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+            </div>
+          </div>
+          <div class="d-pay-group">
+            <div class="d-pay-group-title">Virtual Account</div>
+            <div class="d-pay-methods">
+              <div class="d-pay-card" onclick="dSelectPay(this)"><div class="pay-logo"><span class="pay-logo-text" style="color:#003087">BRI</span></div><div class="pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+              <div class="d-pay-card" onclick="dSelectPay(this)"><div class="pay-logo"><span class="pay-logo-text" style="color:#f60">BNI</span></div><div class="pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+              <div class="d-pay-card" onclick="dSelectPay(this)"><div class="pay-logo"><span class="pay-logo-text" style="color:#003087">Mandiri</span></div><div class="pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="d-pay-summary">
+          <h3>Ringkasan Penukaran</h3>
+          <div class="summary-row"><span>Poin Ditukar</span><span>1.000 Poin</span></div>
+          <div class="summary-row"><span>Nilai Tukar</span><span>Rp 10.000</span></div>
+          <div class="summary-row"><span>Biaya Admin</span><span>Rp 0</span></div>
+          <div class="summary-row"><span>Total Diterima</span><span>Rp 10.000</span></div>
+          <button class="d-pay-btn">Tukar Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MOBILE ══ -->
+<div class="mobile-shell">
+  <div class="mob-statusbar">
+    <span>16:11</span>
+    <div class="mob-statusbar-right">
+      <svg viewBox="0 0 24 24"><path d="M1 6s4-4 11-4 11 4 11 4"/><path d="M5 10s3-3 7-3 7 3 7 3"/><path d="M9 14s2-2 3-2 3 2 3 2"/><circle cx="12" cy="18" r="1" fill="rgba(255,255,255,.8)"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11v4" stroke-width="3"/></svg>
+    </div>
+  </div>
+
+  <!-- BERANDA -->
+  <div class="mob-page active" id="m-beranda">
+    <div class="mob-topbar">
+      <div class="mob-topbar-left">
+        <div class="mob-topbar-logo">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 5.5 4.9 5.5 8.5c0 5.3 6.5 13.5 6.5 13.5s6.5-8.2 6.5-13.5C18.5 4.9 15.5 2 12 2z"/><circle cx="12" cy="8.5" r="2.5"/></svg>
+        </div>
+        <span class="mob-topbar-name">JelantahIN</span>
+      </div>
+      <div class="mob-avatar">A</div>
+    </div>
+    <div class="mob-hello">
+      <h2>Hi xxx ! 👋</h2>
+      <p>Mari kumpulkan minyak goreng bekas hari ini.</p>
+      <div class="mob-search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Pencarian..."/>
+      </div>
+    </div>
+    <div class="mob-body">
+      <div class="mob-poin-card">
+        <div>
+          <div class="mob-poin-label">Saldo Poin Anda</div>
+          <div class="mob-poin-num">4.000</div>
+          <div class="mob-poin-sub">Poin</div>
+        </div>
+        <div class="mob-poin-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+      </div>
+      <div class="mob-section-hd">
+        <span class="mob-section-title">FITUR</span>
+        <span class="mob-section-link">See All</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;">
+        <div class="mob-fitur-item" onclick="mShowPage('edukasi','edukasi')">
+          <div class="mob-fitur-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mob-fitur-name">Edukasi</div>
+        </div>
+        <div class="mob-fitur-item" onclick="mShowPage('pay','pay')">
+          <div class="mob-fitur-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="mob-fitur-name">Pay</div>
+        </div>
+        <div class="mob-fitur-item" onclick="mShowPage('dropoff','dropoff')">
+          <div class="mob-fitur-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="mob-fitur-name">Drop Off</div>
+        </div>
+        <div class="mob-fitur-item" onclick="mShowPage('pickup','pickup')">
+          <div class="mob-fitur-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="mob-fitur-name">Pick Up</div>
+        </div>
+      </div>
+      <div class="mob-section-hd">
+        <span class="mob-section-title">Edukasi</span>
+        <span class="mob-section-link" onclick="mShowPage('edukasi','edukasi')">Lihat Semua</span>
+      </div>
+      <div onclick="mShowPage('edukasi','edukasi')" style="background:var(--navy);border-radius:16px;overflow:hidden;margin-bottom:20px;box-shadow:0 4px 16px rgba(13,27,42,.15);cursor:pointer;">
+        <div style="background:linear-gradient(135deg,#1a1200,#3a2800);height:100px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(251,192,45,.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <div style="position:absolute;top:10px;left:12px;background:var(--yellow);color:var(--navy);font-size:9px;font-weight:800;letter-spacing:1px;padding:3px 10px;border-radius:50px;">⚠ EDUKASI</div>
+        </div>
+        <div style="padding:14px 16px 16px;">
+          <div style="font-size:15px;font-weight:800;color:var(--yellow);margin-bottom:6px;">Bahaya Minyak Jelantah</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.6;">Pelajari dampak kesehatan &amp; lingkungan dari minyak goreng bekas serta cara mendaur ulangnya.</div>
+          <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--yellow);">Baca Selengkapnya <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </div>
+      <div class="mob-section-hd"><span class="mob-section-title">Our Impact</span></div>
+      <div class="mob-impact-card">
+        <div class="mob-impact-grid">
+          <div class="mob-impact-item"><div class="mob-impact-num">10.000+</div><div class="mob-impact-lbl">Liter Collected</div></div>
+          <div class="mob-impact-item"><div class="mob-impact-num">1.000kg</div><div class="mob-impact-lbl">Total Weight</div></div>
+          <div class="mob-impact-item"><div class="mob-impact-num">5.000+</div><div class="mob-impact-lbl">Contributors</div></div>
+          <div class="mob-impact-item"><div class="mob-impact-num">98%</div><div class="mob-impact-lbl">Recycled</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUKASI -->
+  <div class="mob-page" id="m-edukasi">
+    <div class="mob-edu-img">
+      <div class="mob-edu-overlay">
+        <div class="mob-edu-title">Bahaya<br/>Minyak Jelantah</div>
+      </div>
+    </div>
+    <div class="mob-edu-body">
+      <div class="mob-edu-quote">
+        <p class="mob-edu-text">Minyak jelantah adalah minyak goreng yang digunakan berulang kali sehingga mengalami kerusakan kimia dan menghasilkan zat berbahaya seperti lemak trans dan radikal bebas. Penggunaannya meningkatkan risiko penyakit kronis seperti kanker, penyakit jantung, gangguan pencernaan, serta memengaruhi hati dan ginjal.</p>
+        <p class="mob-edu-text" style="margin-top:14px">Selain berbahaya bagi kesehatan, minyak jelantah pun berdampak berat bagi lingkungan. Pembuangannya ke saluran bisa menyumbat pipa, mencemari sumber air bersih dan ekosistem. Sebaiknya dibuang melalui program daur ulang sebagai biodiesel atau pembuatan sabun.</p>
+      </div>
+      <button class="mob-edu-btn" onclick="mShowPage('pay','pay')">Daur Ulang</button>
+    </div>
+  </div>
+
+  <!-- PICKUP -->
+  <div class="mob-page" id="m-pickup">
+    <div style="padding:16px 20px 14px;background:var(--navy);flex-shrink:0;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.07);">
+      <button class="mob-back-btn" onclick="mShowPage('beranda','beranda')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span style="font-size:16px;font-weight:800;color:#fff">PickUP</span>
+    </div>
+    <div style="flex:1;background:var(--g50);"></div>
+  </div>
+
+  <!-- DROP OFF -->
+  <div class="mob-page" id="m-dropoff">
+    <div style="padding:16px 20px 14px;background:var(--navy);flex-shrink:0;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.07);">
+      <button class="mob-back-btn" onclick="mShowPage('beranda','beranda')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span style="font-size:16px;font-weight:800;color:#fff">Drop Off</span>
+    </div>
+    <div style="flex:1;background:var(--g50);"></div>
+  </div>
+
+  <!-- PAY -->
+  <div class="mob-page" id="m-pay">
+    <div class="mob-pay-header">
+      <button class="mob-back-btn" onclick="mShowPage('beranda','beranda')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span class="mob-pay-title">Pilih Metode Penukaran Poin</span>
+    </div>
+    <div class="mob-pay-body">
+      <div class="mob-pay-group">
+        <div class="mob-pay-group-title">e-Wallet</div>
+        <div class="mob-pay-methods">
+          <div class="mob-pay-card" onclick="mSelectPay(this)"><span class="mob-pay-logo-text" style="color:#ee4d2d">ShopeePay</span><div class="mob-pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="mob-pay-card" onclick="mSelectPay(this)"><span class="mob-pay-logo-text" style="color:#00aeef">GoPay</span><div class="mob-pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        </div>
+      </div>
+      <div class="mob-pay-group">
+        <div class="mob-pay-group-title">Virtual Account</div>
+        <div class="mob-pay-methods">
+          <div class="mob-pay-card" onclick="mSelectPay(this)"><span class="mob-pay-logo-text" style="color:#003087">BANK BRI</span><div class="mob-pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="mob-pay-card" onclick="mSelectPay(this)"><span class="mob-pay-logo-text" style="color:#f60">BNI</span><div class="mob-pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+          <div class="mob-pay-card" onclick="mSelectPay(this)"><span class="mob-pay-logo-text" style="color:#003087">mandiri</span><div class="mob-pay-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        </div>
+      </div>
+    </div>
+    <button class="mob-pay-cta">Tukar Poin Sekarang</button>
+  </div>
+
+  <!-- PROFIL -->
+  <div class="mob-page" id="m-profil">
+    <div style="padding:16px 20px 14px;background:var(--navy);flex-shrink:0;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.07);">
+      <span style="font-size:16px;font-weight:800;color:#fff">Profil</span>
+    </div>
+    <div style="flex:1;background:var(--g50);"></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="mob-bottomnav">
+    <button class="mob-nav-item active" id="nav-pickup" onclick="mShowPage('pickup','pickup')">
+      <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/><circle cx="5" cy="17" r="3" stroke-width="2"/><circle cx="18" cy="17" r="3" stroke-width="2"/><path d="M10 5h4l3 5h-8"/><path d="M15 6l3 4"/></svg>
+      <span>PickUP</span>
+    </button>
+    <button class="mob-nav-item" id="nav-dropoff" onclick="mShowPage('dropoff','dropoff')">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span>Drop Off</span>
+    </button>
+    <button class="mob-nav-item" id="nav-beranda" onclick="mShowPage('beranda','beranda')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Beranda</span>
+    </button>
+    <button class="mob-nav-item" id="nav-profil" onclick="mShowPage('profil','profil')">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profil</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+function dShowPage(id,btn){
+  document.querySelectorAll('.desktop-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  document.getElementById('d-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+function dSelectPay(card){
+  document.querySelectorAll('.d-pay-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+function mSelectPay(card){
+  document.querySelectorAll('.mob-pay-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+const navMap={pickup:'nav-pickup',dropoff:'nav-dropoff',beranda:'nav-beranda',profil:'nav-profil',edukasi:'nav-beranda',pay:'nav-beranda'};
+function mShowPage(id,navKey){
+  document.querySelectorAll('.mob-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.mob-nav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('m-'+id).classList.add('active');
+  const navEl=document.getElementById(navMap[navKey||id]||'nav-beranda');
+  if(navEl) navEl.classList.add('active');
+}
+mShowPage('beranda','beranda');
+</script>
+</body>
+</html>

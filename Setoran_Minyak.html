@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JelantahIN — Riwayat Setoran Minyak</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:#0b1630;
+  min-height:100vh;
+  color:#fff;
+}
+
+/* ════════════════════════════
+   CSS VARIABLES
+════════════════════════════ */
+:root{
+  --navy:#0b1630;
+  --navy2:#0f1e3d;
+  --navy3:#162450;
+  --yellow:#f5b800;
+  --yellow2:#ffd54f;
+  --white:#fff;
+  --g50:#f8f9fc;
+  --g100:#eef1f8;
+  --g200:#d8dde8;
+  --g400:#8e9ab5;
+  --g600:#4e5b78;
+  --green:#22c55e;
+  --green-bg:rgba(34,197,94,.12);
+  --orange:#f97316;
+  --orange-bg:rgba(249,115,22,.12);
+}
+
+/* ════════════════════════════
+   DESKTOP LAYOUT (≥ 768px)
+════════════════════════════ */
+.app{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  min-height:100vh;
+}
+
+/* ── Sidebar ── */
+.sidebar{
+  background:linear-gradient(180deg,#0f1e3d 0%,#0b1630 100%);
+  padding:28px 20px;
+  display:flex;flex-direction:column;gap:24px;
+  border-right:1px solid rgba(255,255,255,.06);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+
+.brand{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;padding:16px;
+}
+.brand-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+  box-shadow:0 4px 16px rgba(245,184,0,.4);
+}
+.brand-icon img{width:100%;height:100%;object-fit:contain}
+.brand-icon .fallback-ico{width:28px;height:28px;fill:none;stroke:#0b1630;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.brand-name{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.brand-sub{font-size:12px;color:var(--yellow2);font-weight:500;margin-top:2px}
+
+.summary-box{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:20px;
+}
+.summary-title{
+  font-size:10px;letter-spacing:1.5px;font-weight:700;
+  color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:16px;
+}
+.stat-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);
+}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-size:13px;color:rgba(255,255,255,.65);font-weight:500}
+.stat-value{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--yellow)}
+.stat-value.zero{color:rgba(255,255,255,.3)}
+
+.filter-nav{display:flex;flex-direction:column;gap:6px}
+.filter-nav-title{font-size:10px;letter-spacing:1.5px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:4px}
+.f-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;border-radius:12px;border:none;
+  background:transparent;color:rgba(255,255,255,.55);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;
+  transition:all .2s;text-align:left;position:relative;
+}
+.f-btn:hover{background:rgba(255,255,255,.07);color:#fff}
+.f-btn.active{background:rgba(245,184,0,.15);color:var(--yellow)}
+.f-btn.active::before{
+  content:'';position:absolute;left:0;top:8px;bottom:8px;
+  width:3px;background:var(--yellow);border-radius:0 2px 2px 0;
+}
+.f-ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.f-count{
+  margin-left:auto;padding:2px 8px;border-radius:50px;
+  font-size:11px;font-weight:700;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);
+}
+.f-btn.active .f-count{background:rgba(245,184,0,.2);color:var(--yellow)}
+
+/* ── Main ── */
+.main{
+  background:#f0f2f8;
+  display:flex;flex-direction:column;min-height:100vh;
+}
+
+.main-header{
+  background:linear-gradient(135deg,var(--navy2) 0%,#1a2f60 100%);
+  padding:36px 40px 32px;position:relative;overflow:hidden;
+}
+.main-header::before{content:'';position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(245,184,0,.06)}
+.main-header::after{content:'';position:absolute;right:80px;bottom:-80px;width:180px;height:180px;border-radius:50%;background:rgba(245,184,0,.04)}
+.page-title{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;position:relative}
+.page-sub{font-size:14px;color:rgba(255,255,255,.5);margin-top:6px;font-weight:400;position:relative}
+.header-chips{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;position:relative}
+.chip{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:50px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);
+  font-size:12px;font-weight:600;color:rgba(255,255,255,.8);
+}
+.chip .dot{width:7px;height:7px;border-radius:50%}
+.chip .val{color:#fff;font-family:'DM Mono',monospace}
+
+.content{flex:1;padding:28px 40px 40px}
+
+/* Tabs */
+.tabs-row{
+  display:flex;gap:8px;margin-bottom:24px;
+  background:#fff;border-radius:14px;padding:6px;
+  box-shadow:0 2px 12px rgba(11,22,48,.08);
+  width:fit-content;
+}
+.tab{
+  padding:10px 22px;border-radius:10px;border:none;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;
+  transition:all .22s;color:var(--g600);background:transparent;
+  display:flex;align-items:center;gap:7px;white-space:nowrap;
+}
+.tab:hover{background:var(--g100);color:var(--navy)}
+.tab.active{background:var(--navy2);color:#fff;box-shadow:0 3px 10px rgba(11,22,48,.25)}
+.tab.active.yellow-tab{background:var(--yellow);color:var(--navy)}
+.tab-badge{
+  padding:1px 7px;border-radius:50px;
+  font-size:10px;font-weight:800;
+  background:rgba(0,0,0,.12);
+}
+.tab.active .tab-badge{background:rgba(255,255,255,.25)}
+.tab.active.yellow-tab .tab-badge{background:rgba(0,0,0,.15)}
+
+/* Empty state */
+.empty{text-align:center;padding:60px 20px;animation:fadeIn .3s ease}
+.empty-icon{
+  width:72px;height:72px;border-radius:20px;
+  background:var(--g100);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+}
+.empty-icon svg{width:36px;height:36px;opacity:.3;fill:none;stroke:var(--g600);stroke-width:1.5}
+.empty h3{font-size:16px;font-weight:700;color:var(--g600);margin-bottom:6px}
+.empty p{font-size:13px;color:var(--g400)}
+
+/* Order cards */
+.orders-list{display:flex;flex-direction:column;gap:14px}
+.o-card{
+  background:#fff;border-radius:18px;
+  border:1.5px solid var(--g100);overflow:hidden;
+  box-shadow:0 2px 12px rgba(11,22,48,.06);
+  transition:box-shadow .2s,transform .2s;cursor:pointer;
+  animation:fadeIn .3s ease both;
+}
+.o-card:hover{box-shadow:0 8px 32px rgba(11,22,48,.12);transform:translateY(-2px)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Progress bar */
+.o-progress{height:3px;background:var(--g100);position:relative;overflow:hidden}
+.o-progress-fill{
+  position:absolute;left:0;top:0;bottom:0;
+  background:linear-gradient(90deg,var(--orange),var(--yellow));
+  border-radius:0 2px 2px 0;
+}
+
+.o-card-top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 24px 16px;border-bottom:1px solid var(--g100);
+}
+.o-id{font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.2px}
+.o-meta{display:flex;align-items:center;gap:10px}
+.o-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--g400);font-weight:500}
+
+.status-badge{
+  padding:4px 12px;border-radius:50px;
+  font-size:11px;font-weight:800;
+  display:flex;align-items:center;gap:5px;
+}
+.status-badge.selesai{background:var(--green-bg);color:var(--green)}
+.status-badge.diproses{background:var(--orange-bg);color:var(--orange)}
+.status-badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.status-badge.diproses .dot{animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+.o-card-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.o-field{padding:16px 24px;border-right:1px solid var(--g100)}
+.o-field:last-child{border-right:none}
+.o-field-label{font-size:10px;font-weight:700;color:var(--g400);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.o-field-value{font-size:13px;font-weight:600;color:var(--navy)}
+
+.badge-pay{
+  display:inline-flex;align-items:center;
+  padding:4px 12px;border-radius:50px;
+  background:var(--g50);border:1px solid var(--g200);
+  font-size:12px;font-weight:700;color:var(--navy);
+}
+.badge-lit{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 12px;border-radius:50px;
+  background:rgba(245,184,0,.12);border:1px solid rgba(245,184,0,.3);
+  font-size:12px;font-weight:800;color:#7a5500;
+}
+
+.o-timeline{
+  padding:12px 24px;
+  background:rgba(249,115,22,.04);
+  border-top:1px solid rgba(249,115,22,.1);
+  display:flex;align-items:center;gap:10px;
+}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;animation:pulse 1.5s ease-in-out infinite}
+.tl-text{font-size:12px;color:var(--orange);font-weight:600}
+
+/* ════════════════════════════
+   MOBILE (< 768px)
+════════════════════════════ */
+@media(max-width:767px){
+  body{background:var(--navy)}
+  .app{display:flex;flex-direction:column;min-height:100vh}
+  .sidebar{display:none}
+  .main{background:transparent;min-height:100vh}
+
+  /* Mobile top bar */
+  .mobile-topbar{
+    display:flex;align-items:center;gap:12px;
+    padding:52px 20px 20px;
+  }
+  .mob-back{
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .mob-back svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+  .mob-brand{display:flex;align-items:center;gap:10px}
+  .mob-logo{
+    width:36px;height:36px;border-radius:10px;
+    background:var(--yellow);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    box-shadow:0 3px 10px rgba(245,184,0,.4);
+  }
+  .mob-logo img{width:100%;height:100%;object-fit:contain}
+  .mob-logo .fallback-ico{width:20px;height:20px;fill:none;stroke:#0b1630;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .mob-name{font-size:17px;font-weight:800;color:#fff}
+
+  .main-header{
+    padding:0 20px 22px;
+    background:transparent;
+  }
+  .main-header::before,.main-header::after{display:none}
+  .page-title{font-size:22px;letter-spacing:-.3px}
+  .page-sub{font-size:13px}
+  .header-chips{gap:8px;margin-top:14px}
+  .chip{padding:6px 12px;font-size:11px}
+
+  .content{
+    flex:1;background:#f0f2f8;
+    border-radius:28px 28px 0 0;
+    padding:22px 16px 36px;
+  }
+
+  .tabs-row{
+    width:100%;overflow-x:auto;scrollbar-width:none;
+    padding:5px;margin-bottom:20px;
+  }
+  .tabs-row::-webkit-scrollbar{display:none}
+  .tab{padding:9px 16px;font-size:12px}
+
+  .o-card-top{padding:14px 16px 12px}
+  .o-id{font-size:14px}
+  .o-card-body{grid-template-columns:1fr 1fr}
+  .o-field{padding:13px 16px}
+  .o-field:nth-child(3){
+    grid-column:1/-1;border-right:none;border-top:1px solid var(--g100);
+  }
+  .o-timeline{padding:10px 16px}
+  .orders-list{gap:12px}
+}
+
+/* Mobile topbar hidden on desktop */
+.mobile-topbar{display:none}
+@media(max-width:767px){.mobile-topbar{display:flex}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ══ SIDEBAR (desktop only) ══ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon" id="sidebarIcon">
+        <!-- logo.png akan ditampilkan di sini, fallback ke SVG -->
+        <img src="logo.png" alt="Logo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+          style="width:100%;height:100%;object-fit:contain"/>
+        <svg class="fallback-ico" style="display:none" viewBox="0 0 24 24">
+          <path d="M12 2C8.5 2 5.5 4.9 5.5 8.5c0 5.3 6.5 13.5 6.5 13.5s6.5-8.2 6.5-13.5C18.5 4.9 15.5 2 12 2z"/>
+          <circle cx="12" cy="8.5" r="2.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">JelantahIN</div>
+        <div class="brand-sub">Aplikasi Setoran Minyak</div>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-title">Ringkasan</div>
+      <div class="stat-row"><span class="stat-label">Total Pesanan</span><span class="stat-value" id="s-total">5</span></div>
+      <div class="stat-row"><span class="stat-label">Total Liter</span><span class="stat-value" id="s-liter">55 L</span></div>
+      <div class="stat-row"><span class="stat-label">Selesai</span><span class="stat-value" id="s-selesai">3</span></div>
+      <div class="stat-row"><span class="stat-label">Diproses</span><span class="stat-value" id="s-diproses">2</span></div>
+    </div>
+
+    <div class="filter-nav">
+      <div class="filter-nav-title">Filter Status</div>
+      <button class="f-btn active" data-tab="selesai" onclick="setTab('selesai')">
+        <svg class="f-ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Selesai <span class="f-count">3</span>
+      </button>
+      <button class="f-btn" data-tab="diproses" onclick="setTab('diproses')">
+        <svg class="f-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Diproses <span class="f-count">2</span>
+      </button>
+      <button class="f-btn" data-tab="semua" onclick="setTab('semua')">
+        <svg class="f-ico" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Semua <span class="f-count">5</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+
+    <!-- Mobile top bar -->
+    <div class="mobile-topbar">
+      <button class="mob-back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="mob-brand">
+        <div class="mob-logo">
+          <img src="logo.png" alt="Logo"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+            style="width:100%;height:100%;object-fit:contain"/>
+          <svg class="fallback-ico" style="display:none" viewBox="0 0 24 24">
+            <path d="M12 2C8.5 2 5.5 4.9 5.5 8.5c0 5.3 6.5 13.5 6.5 13.5s6.5-8.2 6.5-13.5C18.5 4.9 15.5 2 12 2z"/>
+            <circle cx="12" cy="8.5" r="2.5"/>
+          </svg>
+        </div>
+        <span class="mob-name">JelantahIN</span>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="main-header">
+      <div class="page-title">Riwayat Setoran Minyak</div>
+      <div class="page-sub" id="pageSub">Menampilkan transaksi yang telah selesai</div>
+      <div class="header-chips">
+        <div class="chip"><span class="dot" style="background:var(--green)"></span>Selesai <span class="val">3</span></div>
+        <div class="chip"><span class="dot" style="background:var(--orange)"></span>Diproses <span class="val">2</span></div>
+        <div class="chip"><span class="dot" style="background:var(--yellow)"></span>Total Liter <span class="val">55 L</span></div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="tabs-row">
+        <button class="tab active yellow-tab" data-tab="selesai" onclick="setTab('selesai')">
+          ✓ Selesai <span class="tab-badge">3</span>
+        </button>
+        <button class="tab" data-tab="diproses" onclick="setTab('diproses')">
+          ⏳ Diproses <span class="tab-badge">2</span>
+        </button>
+        <button class="tab" data-tab="semua" onclick="setTab('semua')">
+          ≡ Semua <span class="tab-badge">5</span>
+        </button>
+      </div>
+
+      <div class="orders-list" id="ordersList"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+const orders = [
+  { id:'#1234', date:'24 Juni',   payment:'Bayar di tempat', liter:'5L',  address:'Jl. Prawiro Kuat, Seturan',  status:'selesai' },
+  { id:'#1342', date:'15 Juli',   payment:'BNI',             liter:'10L', address:'Jl. Puluhdadi, Seturan',     status:'selesai' },
+  { id:'#1325', date:'9 Mei',     payment:'BCA',             liter:'15L', address:'Jl. Puluhdadi, Seturan',     status:'selesai' },
+  { id:'#1401', date:'2 Agustus', payment:'BRI',             liter:'20L', address:'Jl. Magelang Km 5, Seturan', status:'diproses', progress:65, eta:'Estimasi tiba 30 menit' },
+  { id:'#1389', date:'1 Agustus', payment:'Bayar di tempat', liter:'5L',  address:'Jl. Kaliurang Km 8, Sleman', status:'diproses', progress:30, eta:'Sedang disiapkan kurir' },
+];
+
+let currentTab = 'selesai';
+
+const subTexts = {
+  selesai:  'Menampilkan transaksi yang telah selesai',
+  diproses: 'Menampilkan pesanan yang sedang dalam proses',
+  semua:    'Menampilkan semua riwayat transaksi',
+};
+
+function buildCard(o, i){
+  const isProses = o.status === 'diproses';
+  const progressBar = isProses
+    ? `<div class="o-progress"><div class="o-progress-fill" style="width:${o.progress}%"></div></div>` : '';
+  const badge = isProses
+    ? `<span class="status-badge diproses"><span class="dot"></span>Diproses</span>`
+    : `<span class="status-badge selesai"><span class="dot"></span>Selesai</span>`;
+  const timeline = isProses
+    ? `<div class="o-timeline"><div class="tl-dot"></div><span class="tl-text">${o.eta}</span></div>` : '';
+
+  return `
+  <div class="o-card" style="animation-delay:${i*0.07}s">
+    ${progressBar}
+    <div class="o-card-top">
+      <span class="o-id">ID Pesanan ${o.id}</span>
+      <div class="o-meta">
+        <span class="o-date">${o.date}</span>
+        ${badge}
+      </div>
+    </div>
+    <div class="o-card-body">
+      <div class="o-field">
+        <div class="o-field-label">Pembayaran</div>
+        <div class="o-field-value"><span class="badge-pay">${o.payment}</span></div>
+      </div>
+      <div class="o-field">
+        <div class="o-field-label">Total Liter</div>
+        <div class="o-field-value"><span class="badge-lit">🛢 ${o.liter}</span></div>
+      </div>
+      <div class="o-field">
+        <div class="o-field-label">Alamat</div>
+        <div class="o-field-value">${o.address}</div>
+      </div>
+    </div>
+    ${timeline}
+  </div>`;
+}
+
+function buildEmpty(tab){
+  const m = {
+    selesai:  { h:'Belum ada pesanan selesai',    p:'Pesanan yang selesai akan muncul di sini.' },
+    diproses: { h:'Tidak ada pesanan diproses',   p:'Saat ini tidak ada pesanan dalam proses.' },
+    semua:    { h:'Belum ada pesanan',            p:'Riwayat pesanan Anda akan muncul di sini.' },
+  }[tab];
+  return `<div class="empty">
+    <div class="empty-icon">
+      <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2"/></svg>
+    </div>
+    <h3>${m.h}</h3><p>${m.p}</p>
+  </div>`;
+}
+
+function render(){
+  const filtered = currentTab === 'semua' ? orders : orders.filter(o => o.status === currentTab);
+  document.getElementById('ordersList').innerHTML = filtered.length
+    ? filtered.map((o,i) => buildCard(o,i)).join('')
+    : buildEmpty(currentTab);
+  document.getElementById('pageSub').textContent = subTexts[currentTab];
+}
+
+function setTab(tab){
+  currentTab = tab;
+
+  // Sync sidebar f-btn
+  document.querySelectorAll('.f-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+
+  // Sync tab buttons
+  document.querySelectorAll('.tab').forEach(b => {
+    const isActive = b.dataset.tab === tab;
+    b.classList.toggle('active', isActive);
+    b.classList.remove('yellow-tab');
+    if(isActive && tab === 'selesai') b.classList.add('yellow-tab');
+  });
+
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

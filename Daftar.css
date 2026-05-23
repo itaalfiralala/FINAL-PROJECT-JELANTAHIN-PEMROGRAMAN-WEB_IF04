@@ -1,0 +1,252 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:       #112039;
+  --navy-card:  #1c2b45;
+  --gold:       #fcc02a;
+  --gold-light: #ffc655;
+  --gold-dark:  #d4891a;
+  --gold-glow:  rgba(245,166,35,.25);
+  --white:      #ffffff;
+  --text-dim:   #7b90b5;
+  --text-muted: #4e637f;
+  --input-bg:   #ffffff;
+  --green-eco:  #3dba7e;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  font-family: 'Nunito', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  overflow-y: auto;
+}
+
+@keyframes slideLeft  { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:none; } }
+@keyframes slideRight { from { opacity:0; transform:translateX(40px);  } to { opacity:1; transform:none; } }
+@keyframes fadeUp     { from { opacity:0; transform:translateY(20px);  } to { opacity:1; transform:none; } }
+@keyframes fadeDown   { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:none; } }
+@keyframes popIn      { from { opacity:0; transform:scale(.85);        } to { opacity:1; transform:scale(1); } }
+@keyframes shakeX {
+  0%,100% { transform:translateX(0); }
+  20%     { transform:translateX(-8px); }
+  40%     { transform:translateX(8px); }
+  60%     { transform:translateX(-5px); }
+  80%     { transform:translateX(5px); }
+}
+
+/*PAGE*/
+.page { position: relative; z-index: 1; min-height: 100vh; }
+
+/* DESKTOP */
+@media (min-width: 900px) {
+  .page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+
+  /*PANEL KIRI*/
+  .panel-left {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 60px 72px;
+    animation: slideLeft .8s cubic-bezier(.22,1,.36,1) both;
+  }
+  .brand-row { display: flex; align-items: center; gap: 14px; margin-bottom: 64px; }
+  .brand-name-lg {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px; font-weight: 900;
+    color: var(--gold); letter-spacing: .03em;
+  }
+  .eco-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(61,186,126,.12); border: 1px solid rgba(61,186,126,.3);
+    color: var(--green-eco); font-size: 11px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 18px;
+  }
+  .eco-badge svg { width:13px; height:13px; }
+  .hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 50px; font-weight: 900;
+    line-height: 1.08; letter-spacing: -.01em;
+    margin-bottom: 22px; color: var(--white);
+  }
+  .hero-title .accent       { color: var(--gold); }
+  .hero-title .accent-green { color: var(--green-eco); }
+  .hero-desc {
+    font-size: 15.5px; color: var(--text-dim);
+    line-height: 1.75; max-width: 440px; margin-bottom: 48px;
+  }
+  .feature-list { display: flex; flex-direction: column; gap: 12px; }
+  .feature-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-dim); }
+  .feature-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.2);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .feature-icon svg { width:15px; height:15px; color:var(--gold); }
+
+  /* PANEL KANAN */
+  .panel-right {
+    background: var(--navy-card);
+    border-left: 1px solid rgba(245,166,35,.1);
+    box-shadow: -20px 0 80px rgba(0,0,0,.35);
+    display: flex; align-items: center; justify-content: center;
+    padding: 48px 52px;
+    animation: slideRight .8s cubic-bezier(.22,1,.36,1) both;
+    position: relative;
+  }
+  .version-tag {
+    position: absolute; top: 24px; right: 24px;
+    background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.2);
+    border-radius: 6px; padding: 5px 12px;
+    font-size: 10.5px; font-weight: 700;
+    color: var(--gold); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .daftar-card { width: 100%; max-width: 360px; }
+  .mobile-header { display: none; }
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 899px) {
+  .panel-left { display: none; }
+
+  .mobile-header {
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid rgba(245,166,35,.1);
+    background: rgba(15,26,43,.92);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 10;
+    animation: fadeDown .5s both;
+  }
+  .mobile-brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; font-weight: 900; color: var(--gold);
+  }
+
+  .panel-right {
+    flex: 1;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 36px 28px 60px;
+    animation: fadeUp .6s .1s cubic-bezier(.22,1,.36,1) both;
+  }
+  .daftar-card { width: 100%; max-width: 400px; }
+  .version-tag { display: none; }
+}
+
+/* LOGO BLOCK */
+.logo-block {
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 24px;
+  animation: popIn .6s .2s cubic-bezier(.34,1.56,.64,1) both;
+}
+.logo-svg { width: 70px; height: 70px; }
+.logo-wordmark {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px; font-weight: 900;
+  color: var(--gold); letter-spacing: .03em;
+  margin-top: 8px;
+}
+
+/*FORM HEADING*/
+.form-header { margin-bottom: 20px; animation: fadeUp .5s .3s both; }
+.form-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px; font-weight: 800;
+  color: var(--white); letter-spacing: .05em;
+}
+
+/*FIELDS*/
+.field { margin-bottom: 14px; animation: fadeUp .45s .35s both; }
+
+.field label {
+  display: block;
+  font-size: 12px; font-weight: 700;
+  color: var(--gold); letter-spacing: .07em;
+  text-transform: uppercase; margin-bottom: 7px;
+}
+
+/* Plain input (Nama, Kata Sandi) */
+.field input[type="text"],
+.field input[type="password"] {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--input-bg);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; color: #1a1a2e;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field input[type="text"]::placeholder,
+.field input[type="password"]::placeholder { color: #9aa5b8; }
+.field input[type="text"]:focus,
+.field input[type="password"]:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+}
+
+/* Nomor Telepon — prefix + input */
+.phone-row {
+  display: flex;
+  background: var(--input-bg);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+.phone-row:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+}
+.phone-prefix {
+  padding: 14px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: #555e70;
+  border-right: 1px solid #dde2ea;
+  white-space: nowrap; user-select: none;
+}
+.phone-input {
+  flex: 1;
+  padding: 14px 12px;
+  background: transparent;
+  border: none; outline: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; color: #1a1a2e;
+}
+.phone-input::placeholder { color: #9aa5b8; }
+
+/*DAFTAR BUTTON*/
+.btn-daftar {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+  border: none; border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--navy); cursor: pointer;
+  transition: transform .15s, box-shadow .2s;
+  box-shadow: 0 6px 24px rgba(245,166,35,.4);
+  margin-top: 8px;
+  animation: fadeUp .5s .5s both;
+}
+.btn-daftar:hover  { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(245,166,35,.55); }
+.btn-daftar:active { transform: scale(.97); }
+.btn-daftar:disabled { opacity: .7; cursor: not-allowed; transform: none; }
+
+/*FOOTER LINK*/
+.footer-link {
+  text-align: center;
+  font-size: 13px; color: var(--text-muted);
+  margin-top: 16px;
+  animation: fadeUp .5s .55s both;
+}
+.footer-link a { color: var(--gold); font-weight: 700; text-decoration: none; }
+.footer-link a:hover { text-decoration: underline; }

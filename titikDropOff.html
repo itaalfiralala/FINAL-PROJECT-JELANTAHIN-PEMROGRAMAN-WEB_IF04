@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navigasi Kurir - JelantahIN</title>
+    <title>Navigasi Drop Off - JelantahIN</title>
     <style>
         * {
             margin: 0;
@@ -15,7 +15,8 @@
         body {
             background-color: #0d1b2a;
             color: white;
-            overflow: hidden;
+            overflow: auto;
+            min-height: 100vh;
         }
 
         .main-wrapper {
@@ -24,14 +25,13 @@
             flex-direction: row;
         }
 
-        /* --- KIRI PETA --- */
         .map-side {
             flex: 1.5;
             position: relative;
             overflow: hidden;
         }
 
-        .map-image-bg {
+        .map-img {
             position: absolute;
             top: 0;
             left: 0;
@@ -41,33 +41,32 @@
             z-index: 1;
         }
 
-        .rute-line {
+        .garis-jalan {
             position: absolute;
-            top: 40%;
-            left: 20%;
-            width: 60%;
-            height: 4px;
+            top: 45%;
+            left: 25%;
+            width: 50%;
+            height: 6px;
             background: #007bff;
-            transform: rotate(-15deg);
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            transform: rotate(0deg);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
             z-index: 2;
-        }
-
-        .kurir-moving {
-            position: absolute;
-            top: 38%; 
-            left: 35%; 
-            font-size: 40px;
-            z-index: 5;
-            transform: rotate(-18deg);
         }
 
         .pin-dest {
             position: absolute;
-            top: 25%;
-            right: 22%;
-            font-size: 30px;
+            top: 35%;
+            left: 25%;
+            font-size: 35px;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            z-index: 3;
+        }
+
+        .kurir {
+            position: absolute;
+            top: 35%;
+            right: 25%;
+            font-size: 40px;
             z-index: 5;
         }
 
@@ -87,9 +86,13 @@
             font-weight: bold;
             z-index: 10;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: background 0.2s;
         }
 
-        /* --- SISI KANAN: PANEL INFORMASI --- */
+        .back-btn:hover {
+            background: #e0e0e0;
+        }
+
         .info-side {
             flex: 1;
             background-color: #0b1622;
@@ -104,7 +107,7 @@
         }
 
         h2 { font-size: 2rem; margin-bottom: 10px; }
-        .estimasi { color: #a0a0a0; margin-bottom: 30px; }
+        .estimation { color: #a0a0a0; margin-bottom: 30px; }
 
         .stats-container {
             display: flex;
@@ -118,7 +121,7 @@
         .stat-item { font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
         .icon-yellow { color: #ffb703; font-weight: bold; }
 
-        .pemandangan-box {
+        .illustration-box {
             margin-bottom: 40px;
             position: relative;
         }
@@ -134,9 +137,14 @@
             font-weight: bold;
             font-size: 1.1rem;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* UNTUK HP */
+        .btn-start:hover {
+            background: #e0a102;
+        }
+
+        /* tampilan HP */
         @media (max-width: 992px) {
             .main-wrapper { flex-direction: column; }
             .map-side { flex: 1; min-height: 350px; }
@@ -146,7 +154,6 @@
                 margin-top: -30px; 
                 padding: 30px 20px;
             }
-            .kurir-moving { font-size: 30px; top: 38%; left: 40%; }
         }
     </style>
 </head>
@@ -154,38 +161,46 @@
 
     <div class="main-wrapper">
         <div class="map-side">
-            <img src="images/peta.png" alt="Peta Navigasi" class="map-image-bg">
-
-            <a href="#" class="back-btn">&#10094;</a>
+            <a href="dropOff.html" class="back-btn">&#10094;</a>
             
-            <div class="kurir-moving">🛵</div>
+            <img src="./images/peta.png" alt="Peta" class="map-img">
+
+            <div class="garis-jalan"></div>
+            
+            <div class="kurir">🛵</div>
+            
             <div class="pin-dest">📍</div>
         </div>
 
         <div class="info-side">
-
             <h2>Antar ke Titik Drop Off</h2>
-            <p class="estimasi">Estimasi Jarak : 1.2km (15min)</p>
+            <p class="estimation">Estimasi Jarak : 1.2km (15min)</p>
 
             <div class="stats-container">
                 <div class="stat-item">
-                    <span class="icon-yellow">$</span> +50 Poin
+                    <span class="icon-yellow">🪙</span> +50 Poin
                 </div>
                 <div class="stat-item">
                     <span class="icon-yellow">🕒</span> 08:00 - 18:00
                 </div>
             </div>
 
-            <div class="pemandangan-box">
+            <div class="illustration-box">
                 <div style="font-size: 70px; margin-bottom: 10px;">
                     🌳 🛵 🌳
                 </div>
                 <div style="width: 200px; height: 3px; background: white; margin: 0 auto;"></div>
             </div>
 
-            <button class="btn-start">Mulai Navigasi</button>
+            <!-- navigasi -->
+            <button class="btn-start" onclick="mulaiSimulasi()">Mulai Navigasi</button>
         </div>
     </div>
 
+    <script>
+        function mulaiSimulasi() {
+            alert("Sistem GPS Aktif! Silakan ikuti jalur biru pada peta untuk menuju ke lokasi pengepul JelantahIN. 🗺️");
+        }
+    </script>
 </body>
 </html>

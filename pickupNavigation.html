@@ -15,7 +15,7 @@
         body {
             background-color: #0d1b2a;
             color: white;
-            overflow: hidden;
+            overflow: auto;
         }
 
         .main-wrapper {
@@ -28,11 +28,17 @@
         .map-side {
             flex: 1.5;
             position: relative;
-            background: url('https://i.stack.imgur.com/HILoT.png') center/cover;
             overflow: hidden;
         }
 
-        /* Simulasi Jalan Jalur Biru */
+        .map-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* garis jalan */
         .route-line {
             position: absolute;
             top: 40%;
@@ -54,19 +60,12 @@
         }
 
         /* Ikon Kurir */
-        .courier-moving {
+        .courier {
             position: absolute;
             top: 38%;
             right: 20%;
             font-size: 40px;
             z-index: 5;
-        }
-
-        @keyframes moveRoute {
-            0% { transform: translate(0, 0) rotate(-15deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translate(450px, -120px) rotate(-15deg); opacity: 0; }
         }
 
         .back-btn {
@@ -102,8 +101,6 @@
         }
 
         h2 { font-size: 2rem; margin-bottom: 10px; }
-        .estimation { color: #a0a0a0; margin-bottom: 30px; }
-
         .stats-container {
             display: flex;
             gap: 20px;
@@ -121,21 +118,7 @@
             position: relative;
         }
 
-        .btn-start {
-            background: #ffb703;
-            color: #0b1622;
-            border: none;
-            padding: 20px 60px;
-            width: 100%;
-            max-width: 350px;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
 
-        /* UNTUK HP */
         @media (max-width: 992px) {
             .main-wrapper { flex-direction: column; }
             .map-side { flex: 1; min-height: 350px; }
@@ -154,37 +137,25 @@
         <div class="map-side">
             <a href="#" class="back-btn">&#10094;</a>
             
+            <img src="./images/peta.png" alt="Peta" class="map-img">
+
             <div class="route-line"></div>
-            
-            <div class="courier-moving">🛵</div>
-            
+            <div class="courier">🛵</div>
             <div class="pin-dest">📍</div>
         </div>
 
         <div class="info-side">
 
-            <h2>Antar ke Titik Drop Off</h2>
-            <p class="estimation">Estimasi Jarak : 1.2km (15min)</p>
-
-            <div class="stats-container">
-                <div class="stat-item">
-                    <span class="icon-yellow">$</span> +50 Poin
-                </div>
-                <div class="stat-item">
-                    <span class="icon-yellow">🕒</span> 08:00 - 18:00
-                </div>
-            </div>
-
+            <h2>Pengepul menuju ke alamat tujuan</h2>
             <div class="illustration-box">
                 <div style="font-size: 70px; margin-bottom: 10px;">
                     🌳 🛵 🌳
                 </div>
                 <div style="width: 200px; height: 3px; background: white; margin: 0 auto;"></div>
             </div>
-
-            <button class="btn-start">Mulai Navigasi</button>
         </div>
     </div>
+    
 
 </body>
 </html>

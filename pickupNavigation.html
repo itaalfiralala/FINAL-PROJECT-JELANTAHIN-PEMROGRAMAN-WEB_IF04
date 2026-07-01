@@ -3,159 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navigasi Kurir - JelantahIN</title>
+    <title>Status Pickup - JelantahIN</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
         body {
-            background-color: #0d1b2a;
+            background-color: #112039;
             color: white;
-            overflow: auto;
-        }
-
-        .main-wrapper {
-            display: flex;
-            height: 100vh;
-            flex-direction: row; /* Desktop: Kiri & Kanan */
-        }
-
-        /* --- SISI KIRI: PETA INTERAKTIF --- */
-        .map-side {
-            flex: 1.5;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .map-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        /* garis jalan */
-        .route-line {
-            position: absolute;
-            top: 40%;
-            right: 20%;
-            width: 60%;
-            height: 4px;
-            background: #007bff;
-            transform: rotate(15deg);
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-        }
-
-        /* Pin Lokasi */
-        .pin-dest {
-            position: absolute;
-            top: 25%;
-            left: 22%;
-            font-size: 30px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-        }
-
-        /* Ikon Kurir */
-        .courier {
-            position: absolute;
-            top: 38%;
-            right: 20%;
-            font-size: 40px;
-            z-index: 5;
-        }
-
-        .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-            z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        /* --- SISI KANAN: PANEL INFORMASI --- */
-        .info-side {
-            flex: 1;
-            background-color: #0b1622;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            text-align: center;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            z-index: 20;
         }
 
-        h2 { font-size: 2rem; margin-bottom: 10px; }
-        .stats-container {
+        .header {
             display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            background: #162639;
-            padding: 15px 25px;
-            border-radius: 15px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
         }
 
-        .stat-item { font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
-        .icon-yellow { color: #ffb703; font-weight: bold; }
+        .logo { font-size: 1.4rem; font-weight: bold; color: #ffb703; }
 
-        .illustration-box {
-            margin-bottom: 40px;
+        .map-placeholder {
+            flex: 1;
+            min-height: 220px;
+            background: #1c2f4d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             position: relative;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
         }
 
-
-        @media (max-width: 992px) {
-            .main-wrapper { flex-direction: column; }
-            .map-side { flex: 1; min-height: 350px; }
-            .info-side { 
-                flex: 1.2; 
-                border-radius: 30px 30px 0 0; 
-                margin-top: -30px; 
-                padding: 30px 20px;
-            }
+        .judul-halaman {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
         }
+
+        .estimasi-jarak {
+            color: #b8c4d9;
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* garis jalan putih putus-putus sebagai dekorasi CSS (tanpa perlu file gambar) */
+        .garis-jalan {
+            width: 100%;
+            max-width: 320px;
+            height: 3px;
+            margin-top: 14px;
+            background: repeating-linear-gradient(
+                to right,
+                white 0px, white 20px,
+                transparent 20px, transparent 40px
+            );
+            opacity: 0.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kurir-wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .kurir-icon { font-size: 2.6rem; }
+        .pohon-icon { font-size: 2rem; opacity: 0.85; }
+
+        .btn-navigasi {
+            width: calc(100% - 50px);
+            max-width: 380px;
+            margin: 20px auto 0;
+            padding: 16px;
+            background: #ffb703;
+            color: #112039;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.2s;
+        }
+
+        .btn-navigasi:hover { background: #e0a102; transform: scale(1.02); box-shadow: 0 0 12px 4px rgba(255, 183, 3, 0.6); }
+        .btn-navigasi:active { transform: scale(0.95); animation: none; }
+
+        .status-card {
+            background: white;
+            color: #112039;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            padding: 30px 25px 40px;
+        }
+
+        .dot-pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffb703;
+            animation: pulseDot 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .status-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 6px; }
+        .status-desc { color: #666; font-size: 0.9rem; margin-bottom: 25px; }
+
+        /* kartu poin yang muncul saat pesanan selesai */
+        .poin-card {
+            display: none;
+            background: linear-gradient(135deg, #ffb703, #ffd166);
+            color: #6b4500;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 25px;
+            align-items: center;
+            gap: 12px;
+        }
+        .poin-card.show { display: flex; }
+        .poin-icon { font-size: 2rem; }
+        .poin-text-utama { font-weight: bold; font-size: 1.05rem; }
+        .poin-text-sub { font-size: 0.8rem; opacity: 0.85; }
+
+        .detail-row {
+            display: flex;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-row:last-of-type { border-bottom: none; }
+
+        .detail-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+
+        .detail-label { font-size: 0.75rem; color: #999; margin-bottom: 2px; }
+        .detail-value { font-size: 0.9rem; font-weight: 600; }
+
+        .btn-batal {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: 2px solid #d9534f;
+            background: white;
+            color: #d9534f;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-batal:hover { background: #fdf1f0; }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <div class="map-side">
-            <a href="#" class="back-btn">&#10094;</a>
-            
-            <img src="./images/peta.png" alt="Peta" class="map-img">
+    <div class="header">
+        <div class="logo">JeLantahIN</div>
+        <div style="cursor:pointer;" onclick="window.location.href='index.html'">🏠</div>
+    </div>
 
-            <div class="route-line"></div>
-            <div class="courier">🛵</div>
-            <div class="pin-dest">📍</div>
+    <div class="map-placeholder">
+        <div class="judul-halaman">Antar ke Titik Penjemputan</div>
+        <div class="estimasi-jarak" id="estimasiJarak">Estimasi Jarak : - </div>
+
+        <div class="kurir-wrapper">
+            <span class="pohon-icon">🌳</span>
+            <span class="kurir-icon">🛵</span>
+            <span class="pohon-icon">🌳</span>
+        </div>
+        <div class="garis-jalan"></div>
+
+        <button class="btn-navigasi" onclick="mulaiNavigasi()">Mulai Navigasi</button>
+    </div>
+
+    <div class="status-card">
+        <div class="status-badge">
+            <span class="dot-pulse"></span>
+            <span id="statusBadgeText">Menunggu Kurir</span>
         </div>
 
-        <div class="info-side">
+        <div class="status-title" id="statusTitle">Mencari kurir pengepul untuk Anda...</div>
+        <div class="status-desc" id="statusDesc">Kami akan segera menghubungkan Anda dengan kurir terdekat.</div>
 
-            <h2>Pengepul menuju ke alamat tujuan</h2>
-            <div class="illustration-box">
-                <div style="font-size: 70px; margin-bottom: 10px;">
-                    🌳 🛵 🌳
-                </div>
-                <div style="width: 200px; height: 3px; background: white; margin: 0 auto;"></div>
+        <div class="poin-card" id="poinCard">
+            <span class="poin-icon">🎉</span>
+            <div>
+                <div class="poin-text-utama" id="poinDidapat">+0 Poin didapatkan!</div>
+                <div class="poin-text-sub" id="poinTotal">Total poin Anda: 0</div>
             </div>
         </div>
-    </div>
-    
 
+        <div class="detail-row">
+            <span class="detail-icon">🟡</span>
+            <div>
+                <div class="detail-label">Lokasi Penjemputan</div>
+                <div class="detail-value" id="alamatPenjemputan">-</div>
+            </div>
+        </div>
+        <div class="detail-row">
+            <span class="detail-icon">📍</span>
+            <div>
+                <div class="detail-label">Lokasi Tujuan</div>
+                <div class="detail-value" id="alamatTujuan">-</div>
+            </div>
+        </div>
+        <div class="detail-row">
+            <span class="detail-icon">🛢️</span>
+            <div>
+                <div class="detail-label">Jumlah Liter</div>
+                <div class="detail-value" id="jumlahLiterTampil">-</div>
+            </div>
+        </div>
+        <div class="detail-row">
+            <span class="detail-icon">📅</span>
+            <div>
+                <div class="detail-label">Tanggal Pengantaran</div>
+                <div class="detail-value" id="tanggalTampil">-</div>
+            </div>
+        </div>
+
+        <button class="btn-batal" onclick="batalkanPesanan()">Batalkan Pesanan</button>
+    </div>
+
+    <script>
+        const KEY_PESANAN = 'pesananPickup';
+        const KEY_TOTAL_POIN = 'totalPoinUser'; // Diselaraskan dengan komponen profil user
+
+        // ============================================================
+        // Simulasi progres status otomatis
+        // ============================================================
+        const URUTAN_STATUS = [
+            { key: 'menunggu_kurir', badge: 'Menunggu Kurir', title: 'Mencari kurir pengepul untuk Anda...', desc: 'Kami akan segera menghubungkan Anda dengan kurir terdekat.' },
+            { key: 'kurir_menjemput', badge: 'Kurir Menuju Lokasi', title: 'Kurir sedang menuju lokasi Anda', desc: 'Pastikan minyak jelantah sudah siap di lokasi penjemputan.' },
+            { key: 'selesai', badge: 'Selesai', title: 'Penjemputan selesai, terima kasih!', desc: 'Minyak Anda sudah diambil oleh kurir pengepul.' }
+        ];
+
+        // ============================================================
+        // Hitung jarak menggunakan rumus Haversine
+        // ============================================================
+        function hitungJarakKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; 
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) ** 2 +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) ** 2;
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function tampilkanEstimasi(pesanan) {
+            const p = pesanan.penjemputan;
+            const t = pesanan.tujuan;
+            const elJarak = document.getElementById('estimasiJarak');
+
+            if (p?.lat && p?.lon && t?.lat && t?.lon) {
+                const jarakKm = hitungJarakKm(p.lat, p.lon, t.lat, t.lon);
+                const menit = Math.max(1, Math.round((jarakKm / 20) * 60)); 
+                elJarak.textContent = `Estimasi Jarak : ${jarakKm.toFixed(1)}km (${menit}min)`;
+            } else {
+                elJarak.textContent = 'Estimasi jarak tidak tersedia';
+            }
+        }
+
+        function mulaiNavigasi() {
+            const raw = localStorage.getItem(KEY_PESANAN);
+            if (!raw) return;
+            const pesanan = JSON.parse(raw);
+            const t = pesanan.tujuan;
+
+            if (t?.lat && t?.lon) {
+                window.open(`https://www.google.com/maps/search/?api=1&query=${t.lat},${t.lon}`, '_blank');
+            } else {
+                alert('Koordinat lokasi tujuan tidak tersedia.');
+            }
+        }
+
+        // ============================================================
+        // Sistem Poin Dinamis: 1 Liter = 10 Poin
+        // ============================================================
+        function berikanPoinJikaSelesai(pesanan) {
+            if (pesanan.status !== 'selesai') return;
+
+            const POIN_PER_LITER = 10; 
+            const jumlahLiter = parseFloat(pesanan.liter) || 0;
+            const totalPoinDidapat = Math.round(jumlahLiter * POIN_PER_LITER); 
+
+            let totalPoin = parseInt(localStorage.getItem(KEY_TOTAL_POIN) || '0', 10);
+
+            if (!pesanan.poinSudahDiberikan) {
+                totalPoin += totalPoinDidapat;
+                localStorage.setItem(KEY_TOTAL_POIN, totalPoin);
+
+                pesanan.poinSudahDiberikan = true;
+                localStorage.setItem(KEY_PESANAN, JSON.stringify(pesanan));
+            }
+
+            document.getElementById('poinDidapat').textContent = `+${totalPoinDidapat} Poin didapatkan!`;
+            document.getElementById('poinTotal').textContent = `Total poin Anda: ${totalPoin}`;
+            document.getElementById('poinCard').classList.add('show');
+        }
+
+        function muatData() {
+            const raw = localStorage.getItem(KEY_PESANAN);
+            if (!raw) {
+                window.location.href = 'pickup.html';
+                return null;
+            }
+            return JSON.parse(raw);
+        }
+
+        function tampilkanData(pesanan) {
+            const infoStatus = URUTAN_STATUS.find(s => s.key === pesanan.status) || URUTAN_STATUS[0];
+
+            document.getElementById('statusBadgeText').textContent = infoStatus.badge;
+            document.getElementById('statusTitle').textContent = infoStatus.title;
+            document.getElementById('statusDesc').textContent = infoStatus.desc;
+
+            document.getElementById('alamatPenjemputan').textContent = pesanan.penjemputan?.alamat || '-';
+            document.getElementById('alamatTujuan').textContent = pesanan.tujuan?.alamat || '-';
+            
+            // BERUBAH: Ditambahkan imbuhan "Liter" di belakang nilai angka murni
+            document.getElementById('jumlahLiterTampil').textContent = pesanan.liter ? pesanan.liter + ' Liter' : '-';
+            document.getElementById('tanggalTampil').textContent = pesanan.tanggal || '-';
+
+            tampilkanEstimasi(pesanan);
+            berikanPoinJikaSelesai(pesanan);
+
+            if (pesanan.status === 'selesai') {
+                document.querySelector('.btn-batal').style.display = 'none';
+                document.querySelector('.btn-navigasi').style.display = 'none';
+            }
+        }
+
+        function batalkanPesanan() {
+            if (confirm('Yakin ingin membatalkan pesanan ini?')) {
+                localStorage.removeItem(KEY_PESANAN);
+                window.location.href = 'pickup.html';
+            }
+        }
+
+        // ============================================================
+        // DEMO OTOMATIS: Simulasi Progres Status Per 8 Detik
+        // ============================================================
+        function jalankanSimulasi(pesanan) {
+            if (pesanan.status === 'menunggu_kurir') {
+                setTimeout(() => {
+                    pesanan.status = 'kurir_menjemput';
+                    localStorage.setItem(KEY_PESANAN, JSON.stringify(pesanan));
+                    tampilkanData(pesanan);
+                    jalankanSimulasi(pesanan);
+                }, 8000);
+            } else if (pesanan.status === 'kurir_menjemput') {
+                setTimeout(() => {
+                    pesanan.status = 'selesai';
+                    localStorage.setItem(KEY_PESANAN, JSON.stringify(pesanan));
+                    tampilkanData(pesanan);
+                }, 8000);
+            }
+        }
+
+        const pesananSaatIni = muatData();
+        if (pesananSaatIni) {
+            tampilkanData(pesananSaatIni);
+            jalankanSimulasi(pesananSaatIni);
+        }
+    </script>
 </body>
 </html>
